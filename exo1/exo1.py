@@ -22,9 +22,10 @@ class Robot():
     __name = "<unnamed>"
     __power = False
     __current_speed = 0
-    __battery_level = 30
+    __battery_level = 10
     __states = ['shutdown', 'running']
-    
+    positionX = 0
+    positionY = 0
         
     """
       Give your best code here ( •̀ ω •́ )✧
@@ -59,30 +60,31 @@ class Robot():
         for i in range(batt_a_remplir) :
             self.__battery_level +=10
             Affichage_batt.append('-')
-            #print(self.__battery_level, '%')
-            print(Affichage_batt, self.__battery_level, '%')
+            print(''.join(Affichage_batt), self.__battery_level, '%')
             time.sleep(1)
 
         if(self.__battery_level!=100):
             self.__battery_level = 100
-            print(self.__battery_level, '%')
+            print(''.join(Affichage_batt), self.__battery_level, '%')
             time.sleep(1)
         print('\n')
         pass
     
     def deplacement(self, direction = 'droite', vitesse = 15):
-        if(self.__power == True & self.__battery_level > 0.5*vitesse):
-            if(direction == 'gauche'):
-                positionX -= vitesse
-            elif (direction == 'droite'):
-                positionX += vitesse
-            elif(direction == 'devant'):
-                positionY += vitesse
-            elif (direction == 'derriere'):
-                positionY -= vitesse
-            
-            __current_speed = vitesse
-            self.__battery_level -= 0.5*vitesse
+        if(self.__power == True): 
+            if(self.__battery_level > 15):
+                if(direction == 'gauche'):
+                    self.positionX -= vitesse
+                elif (direction == 'droite'):
+                    self.positionX += vitesse
+                elif(direction == 'devant'):
+                    self.positionY += vitesse
+                elif (direction == 'derriere'):
+                    self.positionY -= vitesse
+                
+                self.__current_speed = vitesse
+                self.__battery_level -= 0.5*vitesse
+            pass
         pass
 
     def vitesse_actuelle(self):
@@ -103,9 +105,8 @@ r = Robot()
 
 print('\n///////////Mise en marche du robot///////////\n')
 r.allumer()
-
-print('\n///////////Nommage du robot///////////\n')
-r.donner_nom('R2D2')
+nom = input('Entrer le nom que vous souhaitez donner au robot : ')
+r.donner_nom(nom)
 
 
 print('\nAVANT CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
