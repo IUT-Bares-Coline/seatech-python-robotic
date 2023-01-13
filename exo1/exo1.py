@@ -100,43 +100,44 @@ class Robot():
 
 #MAIN
 
-	
-r = Robot()
+if __name__ == 'main' :
+        
+    r = Robot()
 
-print('\n///////////Mise en marche du robot///////////\n')
-r.allumer()
-nom = input('Entrer le nom que vous souhaitez donner au robot : ')
-r.donner_nom(nom)
-
-
-print('\nAVANT CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
-print('\n///////////Affichage de l état du robot///////////\n')
-r.etat_global()
+    print('\n///////////Mise en marche du robot///////////\n')
+    r.allumer()
+    nom = input('Entrer le nom que vous souhaitez donner au robot : ')
+    r.donner_nom(nom)
 
 
-print('\nAVANT CHARGEMENT ET APRES CONSIGNE DE DEPLACEMENT\n')
-print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (Mais en fait non parce que pas de batterie ! :/  )///////////\n')
-r.deplacement('gauche',8)
-
-print('\n///////////Affichage de la vitesse du robot///////////\n')
-r.vitesse_actuelle()
-
-print('\n///////////Affichage de l état du robot///////////\n')
-r.etat_global()
+    print('\nAVANT CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
+    print('\n///////////Affichage de l état du robot///////////\n')
+    r.etat_global()
 
 
-print('\nAPRES CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
-r.charger()
-print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (et ouais il est rapide le loulou !))///////////\n')
-r.deplacement('gauche',8)
+    print('\nAVANT CHARGEMENT ET APRES CONSIGNE DE DEPLACEMENT\n')
+    print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (Mais en fait non parce que pas de batterie ! :/  )///////////\n')
+    r.deplacement('gauche',8)
 
-print('\n///////////Affichage de la vitesse du robot///////////\n')
-r.vitesse_actuelle()
+    print('\n///////////Affichage de la vitesse du robot///////////\n')
+    r.vitesse_actuelle()
 
-print('\n///////////Affichage de l état du robot///////////\n')
-r.etat_global()
+    print('\n///////////Affichage de l état du robot///////////\n')
+    r.etat_global()
 
-print('\n///////////Mise à l arrêt du robot///////////\n')
-r.eteindre()
 
-print('\n///////////END OF LIFE///////////\n')
+    print('\nAPRES CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
+    r.charger()
+    print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (et ouais il est rapide le loulou !))///////////\n')
+    r.deplacement('gauche',8)
+
+    print('\n///////////Affichage de la vitesse du robot///////////\n')
+    r.vitesse_actuelle()
+
+    print('\n///////////Affichage de l état du robot///////////\n')
+    r.etat_global()
+
+    print('\n///////////Mise à l arrêt du robot///////////\n')
+    r.eteindre()
+
+    print('\n///////////END OF LIFE///////////\n')
