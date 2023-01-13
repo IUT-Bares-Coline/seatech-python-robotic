@@ -65,20 +65,26 @@ cyborg.digerer(10)
 print('teeeeeeeeest')
 """
 
+if __name__ == "__main__" :
+    humain = Human()
+    print('------------------------------\nNOUVEL HUMAIN CREE : \n')
+    humain.affiche_etat()
+    print('------------------------------')
+    humain.digerer(2)
+    humain.affiche_etat()
+    print('------------------------------')
+    humain.manger(['carotte'])
+    humain.affiche_etat()
 
-humain = Human()
-print('------------------------------\nNOUVEL HUMAIN CREE : \n')
-humain.affiche_etat()
-print('------------------------------')
-humain.digerer(2)
-humain.affiche_etat()
-print('------------------------------')
-humain.manger(['carotte'])
-humain.affiche_etat()
+
+    cyborg = Cyborg()
+    print('\n------------------------------\nNOUVEAU CYBORG CREE : \n')
+    cyborg.affiche_etat()
+    print('------------------------------')
+    
+    cyborg.etat_global()
 
 
-cyborg = Cyborg()
-print('\n------------------------------\nNOUVEAU CYBORG CREE : \n')
-cyborg.affiche_etat()
-print('------------------------------')
-cyborg.etat_global()
+
+#Possibilité ajout exceptions + ":str"
+#class.mro
