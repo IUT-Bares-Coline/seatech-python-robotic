@@ -180,7 +180,7 @@ class UGV(GroundVehicle, UnmannedVehicle):
         self.destination = input("Configuration de la mission de l'UGV : \n   Entrer une destination : ")
 
     def demarrer2(self):
-        demarrage = 1
+        self.demarrage = 1
         print('Demarrage de l UGV')
 
     def rouler(self):
@@ -188,18 +188,18 @@ class UGV(GroundVehicle, UnmannedVehicle):
             print("Veuiller démarrer le véhicule avant de rouler")
         else :
             print('L UGV roule')
+            print('|')
+            time.sleep(1)
             print('----', end='')
             time.sleep(1)
-            print('----')
+            print(' ---     ----[O_o]  |>', self.destination)
+            print('       |     |')
+            print('        ----')
             time.sleep(1)
-            print('       |', end='')
-            time.sleep(1)
-            print('       ----')
-            time.sleep(1)
-            print('           |')
-            time.sleep(1)
-            print('            ---- [O_o]  |>', self.destination)
-            time.sleep(1)
+            #print('|', end='')
+            #time.sleep(1)
+            #print('             ---- [O_o]  |>', self.destination)
+            #time.sleep(1)
 
     def arreter(self):
         demarrage = 0
