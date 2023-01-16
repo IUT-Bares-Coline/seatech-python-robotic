@@ -113,12 +113,12 @@ class UAV(AerialVehicle, UnmannedVehicle):
             time.sleep(1)
             print('           |')
             time.sleep(1)
-            print('            ----[o_o]  |> ', self.destination)
+            print('            ----[o_o]  |>', self.destination)
             time.sleep(1)
 
     def atterir(self):
         self.altitude = 0
-        print("Atterissage du l'UAV")
+        print("\nAtterissage du l'UAV")
 
     pass
 
@@ -158,32 +158,51 @@ class UUV(UnderseaVehicle, UnmannedVehicle):
             time.sleep(1)
             print('           |')
             time.sleep(1)
-            print('            ----[o_o]  |> ', self.destination)
+            print('            ---- [O_o]  |>', self.destination)
             time.sleep(1)
 
     def sortir_eau(self):
-        print('Sortie de l eau de l UUV')
+        print('\nSortie de l eau de l UUV')
 
 
 class UGV(GroundVehicle, UnmannedVehicle):
     """Unmanned Ground Vehicle"""
+    destination = 'Paris'
+    demarrage = 0
 
     def demarrer(self):
         print("Mise en marche des moteurs de l'UGV.")
 
     def mission(self):
-        print("L'UGV effectue sa mission automatiquement")    
+        print("L'UUV effectue sa mission automatiquement jusqu'à ", self.destination)
     
     def config_mission(self):
-        print('Configuration de la mission de l UGV')
+        self.destination = input("Configuration de la mission de l'UGV : \n   Entrer une destination : ")
 
     def demarrer2(self):
+        demarrage = 1
         print('Demarrage de l UGV')
 
     def rouler(self):
-        print('L UGV roule')
+        if(self.demarrage != 1):
+            print("Veuiller démarrer le véhicule avant de rouler")
+        else :
+            print('L UGV roule')
+            print('----', end='')
+            time.sleep(1)
+            print('----')
+            time.sleep(1)
+            print('       |', end='')
+            time.sleep(1)
+            print('       ----')
+            time.sleep(1)
+            print('           |')
+            time.sleep(1)
+            print('            ---- [O_o]  |>', self.destination)
+            time.sleep(1)
 
     def arreter(self):
+        demarrage = 0
         print('Arrêt de l UGV')
 
     pass
@@ -229,7 +248,7 @@ if __name__ == "__main__" :
     ugv.demarrer()
     ugv.config_mission()
     ugv.mission()
-    ugv.demarrer()
+    ugv.demarrer2()
     ugv.rouler()
     ugv.arreter()
 
