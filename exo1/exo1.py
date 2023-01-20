@@ -82,8 +82,9 @@ class Capteurs():
 
 
 
-    def lectureDistance():
-        #print('lecture distance', Avant1)
+    def plusCourteDistance():
+        
+        #retourne le capteur avec la distance la plus courte / la direction
         pass
 
     
@@ -95,9 +96,23 @@ class monRobot(Robot) :
     def __init__(self):
         self.__motors = Moteurs()
 
-    def jouer(self):
-        self.__motors.avancer()
+    def AvancerVersAdversaire(self):
+        #recuperer distance la plus courte des capteurs et avancer dans cette direction 
+        """
+        if(gauche 1 ou gauche 2 plus court) :
+            self.__motors.turnGauche()
+        else:
+            if(////droit 1 ou droit2 plus court):
+                self.__motors.turnDroite()
+        else:
+            if(////avant 1 ou avant2 ou avant3 etc plus court):
+                self.__motors.avancer()
+        """
         pass
+
+
+
+
 
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
