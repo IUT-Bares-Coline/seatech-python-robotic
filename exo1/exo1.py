@@ -1,143 +1,128 @@
-""" 
-Exoooooo 1
+"""my_controller controller."""
 
-    Lorsque je crée mon robot, je veux pouvoir lui attribuer un nom
-    Mon robot doit pouvoir s'allumer
-    Mon robot doit pouvoir s'éteindre
-    Mon robot doit pouvoir charger sa batterie à 100%, allumé ou non
-    Le temps de charge ne peut pas être immédiat (10s max)
-    Mon robot doit afficher sont % de batterie durant sa charge
-    Mon robot doit pouvoir enregistrer une vitesse de déplacement
-    Mon robot doit pouvoir me donner sa vitesse de déplacement
-    Mon robot doit pouvoir arrêter son déplacement sur commande
-    Mon robot doit pouvoir me fournir un résumé de son état global
+# You may need to import some classes of the controller module. Ex:
+#  from controller import Robot, Motor, DistanceSensor
+from controller import Robot, Motor, DistanceSensor
 
-    Une fois terminé, commitez votre code sur Github
-    Je jouerai alors avec votre objet pour interagir avec lui
 
- """
-import time
+# get the time step of the current world.
+#
 
-class Robot():
-    __name = "<unnamed>"
-    __power = False
-    __current_speed = 0
-    __battery_level = 10
-    __states = ['shutdown', 'running']
-    positionX = 0
-    positionY = 0
-        
-    """
-      Give your best code here ( •̀ ω •́ )✧
-    """
-    #__slots__ = ('name', 'power')
-	
-    def __init__(self, name='Jean_Charles', power=False):
-        self.__name = name
-        self.__power = power
-
-    def donner_nom(self, nom = 'Jean_Charles'):
-        self.__name = nom
-        pass
-
-    def allumer(self):
-        print('Bonjour ! < O_O >')
-        self.__power = True 
-        self.__states = 'running'
-        pass
-
-    def eteindre(self):
-        print('Au revoir ! < -_- >')
-        self.__power = False
-        self.__states = 'shutdown'
-        pass
-
-    def charger(self): 
-        Affichage_batt = ['-']
-        print('Niveau batterie : ')
-        batt_a_remplir = int(( 100 - self.__battery_level) / 10)
-
-        for i in range(batt_a_remplir) :
-            self.__battery_level +=10
-            Affichage_batt.append('-')
-            print(''.join(Affichage_batt), self.__battery_level, '%')
-            time.sleep(1)
-
-        if(self.__battery_level!=100):
-            self.__battery_level = 100
-            print(''.join(Affichage_batt), self.__battery_level, '%')
-            time.sleep(1)
-        print('\n')
-        pass
+# You should insert a getDevice-like function in order to get the
+# instance of a device of the robot. Something like:
+#  motor = DistanceSensor('motorname')
+#  ds = DistanceSensor('dsname')
+#  ds.enable(timestep)
     
-    def deplacement(self, direction = 'droite', vitesse = 15):
-        if(self.__power == True): 
-            if(self.__battery_level > 15):
-                if(direction == 'gauche'):
-                    self.positionX -= vitesse
-                elif (direction == 'droite'):
-                    self.positionX += vitesse
-                elif(direction == 'devant'):
-                    self.positionY += vitesse
-                elif (direction == 'derriere'):
-                    self.positionY -= vitesse
-                
-                self.__current_speed = vitesse
-                self.__battery_level -= 0.5*vitesse
-            pass
+
+class Moteurs():
+    
+    __vitesseGauche = 5
+    __vitesseDroit = 5
+    __moteurGauche = Motor('left wheel motor')
+    __moteurDroit = Motor('right wheel motor')
+
+    def __init__(self):
+        self.__moteurGauche.setPosition(float('inf'))
+        self.__moteurDroit.setPosition(float('inf'))
+        self.__moteurGauche.setVelocity(0)
+        self.__moteurDroit.setVelocity(0)
+
+    def avancer(self):
+        self.__moteurGauche.setVelocity(15)
+        self.__moteurDroit.setVelocity(15)
+        print("J'avance")
+
+    def reculer(self):
+        self.__moteurGauche.setVelocity(-15)
+        self.__moteurDroit.setVelocity(-15)
+        print("Je recule")
+
+    def turnGauche(self):
+        self.__moteurGauche.setVelocity(15)
+        self.__moteurDroit.setVelocity(-10)
+        print('Je tourne à gauche')
+    
+    def turnDroite(self):
+        self.__moteurGauche.setVelocity(-10)
+        self.__moteurDroit.setVelocity(15)
+        print('Je tourne à droite')
+
+
+
+class Capteurs():
+
+    #Numérotation des capteurs de gauche à droite 
+    #en se plaçant à la place du robot (pas en face)
+    
+    def __init__(self):
+        self.Avant1 = DistanceSensor('ds13')
+        self.Avant2 = DistanceSensor('ds14')
+        self.Avant3 = DistanceSensor('ds15')
+        self.Avant4 = DistanceSensor('ds0')
+        self.Avant5 = DistanceSensor('ds1')
+        self.Avant6 = DistanceSensor('ds2')
+
+        self.GaucheArriere = DistanceSensor('ds10')
+        self.GaucheAvant = DistanceSensor('ds11')
+
+        self.ArriereGauche = DistanceSensor('ds8')
+        self.ArriereDroit = DistanceSensor('ds7')
+
+        self.DroitArriere = DistanceSensor('ds5')
+        self.DroitAvant = DistanceSensor('ds4')
+
+        self.CoinAvantGauche = DistanceSensor('ds12')
+        self.CoinAvantDroit = DistanceSensor('ds3')
+
+        self.CoinArriereGauche = DistanceSensor('ds9')
+        self.CoinArriereDroit = DistanceSensor('ds6')
+
+        self.print('lecture distance', self.Avant1)
+
+
+
+    def lectureDistance():
+        #print('lecture distance', Avant1)
         pass
 
-    def vitesse_actuelle(self):
-        print('Vitesse actuelle : ', self.__current_speed) 
+    
+
+
+class monRobot(Robot) :
+    __nom = 'El Destructor'
+
+    def __init__(self):
+        self.__motors = Moteurs()
+
+    def jouer(self):
+        self.__motors.avancer()
         pass
 
-    def etat_global(self):
-        print('Nom du robot : ', self.__name)
-        print('Vitesse du robot : ', self.__current_speed)
-        print('Niveau de batterie du robot : ', self.__battery_level)
-        print('Etat du robot : ', self.__states)
+# Main loop:
+# - perform simulation steps until Webots is stopping the controller
+
+Jean_Marc = monRobot()
+timestep = int(Jean_Marc.getBasicTimeStep())
+
+while Jean_Marc.step(timestep) != -1:
+    # Read the sensors:
+    # Enter here functions to read sensor data, like:
+    #  val = ds.getValue()
+
+    # Process sensor data here.
+
+    # Enter here functions to send actuator commands, like:
+    #  motor.setPosition(10.0)
 
 
-#MAIN
 
-if __name__ == 'main' :
-        
-    r = Robot()
+    
+    Jean_Marc.jouer()
+    #Jean_Marc.reculer()
+    #Jean_Marc.turnDroite()
+    #Jean_Marc.turnGauche()
 
-    print('\n///////////Mise en marche du robot///////////\n')
-    r.allumer()
-    nom = input('Entrer le nom que vous souhaitez donner au robot : ')
-    r.donner_nom(nom)
+    pass
 
-
-    print('\nAVANT CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
-    print('\n///////////Affichage de l état du robot///////////\n')
-    r.etat_global()
-
-
-    print('\nAVANT CHARGEMENT ET APRES CONSIGNE DE DEPLACEMENT\n')
-    print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (Mais en fait non parce que pas de batterie ! :/  )///////////\n')
-    r.deplacement('gauche',8)
-
-    print('\n///////////Affichage de la vitesse du robot///////////\n')
-    r.vitesse_actuelle()
-
-    print('\n///////////Affichage de l état du robot///////////\n')
-    r.etat_global()
-
-
-    print('\nAPRES CHARGEMENT ET CONSIGNE DE DEPLACEMENT\n')
-    r.charger()
-    print('\n///////////Déplacement du robot (direction = gauche et vitesse = 8m/s (et ouais il est rapide le loulou !))///////////\n')
-    r.deplacement('gauche',8)
-
-    print('\n///////////Affichage de la vitesse du robot///////////\n')
-    r.vitesse_actuelle()
-
-    print('\n///////////Affichage de l état du robot///////////\n')
-    r.etat_global()
-
-    print('\n///////////Mise à l arrêt du robot///////////\n')
-    r.eteindre()
-
-    print('\n///////////END OF LIFE///////////\n')
+# Enter here exit cleanup code.
