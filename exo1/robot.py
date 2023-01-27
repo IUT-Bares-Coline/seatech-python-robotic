@@ -146,7 +146,7 @@ class Capteurs():
         
         liste = self.lectureDistances()
         valeur_max = 0
-        #indice = 0
+        indice = 0
 
         for i in range(len(liste)): #+ la distance est petite, + le nombre est grand
             if (liste[i] > valeur_max):
@@ -191,12 +191,12 @@ class monRobot(Moteurs) :
             else :
                 if(retourDist == "gauche"):
                     self.turnGauche()
-                    #time.sleep(5)
+                    #time.sleep(20)
                     #self.avancer()
                 else :
                     if(retourDist == "droite"):
                         self.turnDroite()
-                        #time.sleep(5)
+                        #time.sleep(20)
                         #self.avancer()
 
             
