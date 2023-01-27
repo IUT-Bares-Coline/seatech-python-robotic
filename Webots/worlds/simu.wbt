@@ -12,8 +12,8 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.1653095651566341 0.009984368304536117 -0.9861911883895962 3.082423430698955
-  position 6.742651852059515 0.8179912115986737 4.146020187025206
+  orientation 0.24977826163418682 0.019892461763047008 -0.9680987087998877 3.196032027816089
+  position 6.68232060099964 -0.6905510326858124 5.830625449754496
 }
 TexturedBackground {
   texture "noon_stormy_empty"
@@ -69,13 +69,17 @@ SolidBox {
   }
 }
 Koala {
-  translation 2.983024000000011 0 2.16
+  translation 0.07302 7.72196e-06 2.07
   rotation 0 0 1 3.14159
   controller "my_controller"
   controllerArgs [
     ""
   ]
+  extensionSlot [
+    GPS {
+    }
+  ]
 }
 Pioneer2 {
-  translation 2.22 0 2.06
+  translation -0.29 0.55 2.06
 }

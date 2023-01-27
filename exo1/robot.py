@@ -191,13 +191,13 @@ class monRobot(Moteurs) :
             else :
                 if(retourDist == "gauche"):
                     self.turnGauche()
-                    time.sleep(5)
-                    self.avancer()
+                    #time.sleep(5)
+                    #self.avancer()
                 else :
                     if(retourDist == "droite"):
                         self.turnDroite()
-                    time.sleep(5)
-                    self.avancer()
+                        #time.sleep(5)
+                        #self.avancer()
 
             
     
