@@ -3,6 +3,7 @@
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
 from controller import Robot, Motor, DistanceSensor
+import time
 
 # create the Robot instance.
 robot = Robot()
@@ -40,13 +41,13 @@ class Moteurs():
         print("Je recule")
 
     def turnGauche(self):
-        self.__moteurGauche.setVelocity(5)
-        self.__moteurDroit.setVelocity(-5)
+        self.__moteurGauche.setVelocity(-5)
+        self.__moteurDroit.setVelocity(5)
         print('Je tourne à gauche')
     
     def turnDroite(self):
-        self.__moteurGauche.setVelocity(-5)
-        self.__moteurDroit.setVelocity(5)
+        self.__moteurGauche.setVelocity(5)
+        self.__moteurDroit.setVelocity(-5)
         print('Je tourne à droite')
 
 
@@ -55,33 +56,113 @@ class Capteurs():
 
     #Numérotation des capteurs de gauche à droite 
     #en se plaçant à la place du robot (pas en face)
-    Avant1 = robot.getDevice('ds13')
-    Avant2 = robot.getDevice('ds14')
-    Avant3 = robot.getDevice('ds15')
-    Avant4 = robot.getDevice('ds0')
-    Avant5 = robot.getDevice('ds1')
-    Avant6 = robot.getDevice('ds2')
+    listeDistances = []
+    
 
-    GaucheArriere = robot.getDevice('ds10')
-    GaucheAvant = robot.getDevice('ds11')
+    def __init__(self):
+        self.Avant1 = DistanceSensor('ds13')
+        self.Avant1.enable(timestep) 
 
-    ArriereGauche = robot.getDevice('ds8')
-    ArriereDroit = robot.getDevice('ds7')
+        self.Avant2 = DistanceSensor('ds14')
+        self.Avant2.enable(timestep) 
 
-    DroitArriere = robot.getDevice('ds5')
-    DroitAvant = robot.getDevice('ds4')
+        self.Avant3 = DistanceSensor('ds15')
+        self.Avant3.enable(timestep) 
 
-    CoinAvantGauche = robot.getDevice('ds12')
-    CoinAvantDroit = robot.getDevice('ds3')
+        self.Avant4 = DistanceSensor('ds0')
+        self.Avant4.enable(timestep) 
 
-    CoinArriereGauche = robot.getDevice('ds9')
-    CoinArriereDroit = robot.getDevice('ds6')
+        self.Avant5 = DistanceSensor('ds1')
+        self.Avant5.enable(timestep) 
+
+        self.Avant6 = DistanceSensor('ds2')
+        self.Avant6.enable(timestep) 
+
+        self.GaucheArriere = DistanceSensor('ds10')
+        self.GaucheArriere.enable(timestep) 
+
+        self.GaucheAvant = DistanceSensor('ds11')
+        self.GaucheAvant.enable(timestep) 
+
+        self.ArriereGauche = DistanceSensor('ds8')
+        self.ArriereGauche.enable(timestep) 
+
+        self.ArriereDroit = DistanceSensor('ds7')
+        self.ArriereDroit.enable(timestep) 
+
+        self.DroitArriere = DistanceSensor('ds5')
+        self.DroitArriere.enable(timestep) 
+
+        self.DroitAvant = DistanceSensor('ds4')
+        self.DroitAvant.enable(timestep) 
+
+        self.CoinAvantGauche = DistanceSensor('ds12')
+        self.CoinAvantGauche.enable(timestep) 
+
+        self.CoinAvantDroit = DistanceSensor('ds3')
+        self.CoinAvantDroit.enable(timestep) 
+
+        self.CoinArriereGauche = DistanceSensor('ds9')
+        self.CoinArriereGauche.enable(timestep) 
+
+        self.CoinArriereDroit = DistanceSensor('ds6')
+        self.CoinArriereDroit.enable(timestep) 
 
 
-class monRobot(Moteurs, Capteurs) :
+
+    def lectureDistances(self):
+        self.listeDistances.append(self.Avant1.getValue())
+        self.listeDistances.append(self.Avant2.getValue())
+        self.listeDistances.append(self.Avant3.getValue())
+        self.listeDistances.append(self.Avant4.getValue())
+        self.listeDistances.append(self.Avant5.getValue())
+        self.listeDistances.append(self.Avant6.getValue())
+        self.listeDistances.append(self.GaucheArriere.getValue())
+        self.listeDistances.append(self.GaucheAvant.getValue())
+        self.listeDistances.append(self.ArriereGauche.getValue())
+        self.listeDistances.append(self.ArriereDroit.getValue())
+        self.listeDistances.append(self.DroitArriere.getValue())
+        self.listeDistances.append(self.DroitAvant.getValue())
+        self.listeDistances.append(self.CoinAvantGauche.getValue())
+        self.listeDistances.append(self.CoinAvantDroit.getValue())
+        self.listeDistances.append(self.CoinArriereGauche.getValue())
+        self.listeDistances.append(self.CoinArriereDroit.getValue())
+        
+        
+        return self.listeDistances 
+        
+    
+    
+    def retourMinDistance(self):
+        
+        liste = self.lectureDistances()
+        valeur_max = 0
+        
+        for i in liste: #+ la distance est petite, + le nombre est grand
+            if (i > valeur_max):
+                valeur_max = i
+        
+        #print(liste)
+        print('\ndist min : ', valeur_max)
+            
+    
+    
+class monRobot(Moteurs) :
     __nom = 'El Destructor'
+    
+    def __init__(self):
+        self.capt = Capteurs()
+        self.mot = Moteurs()
+        
+    def run(self):
+        #self.avancer()
+        self.capt.retourMinDistance()
+            
+    
+    
+        
 
-
+Jean_Marc = monRobot()
 # Main loop:
 # - perform simulation steps until Webots is stopping the controller
 while robot.step(timestep) != -1:
@@ -93,11 +174,14 @@ while robot.step(timestep) != -1:
 
     # Enter here functions to send actuator commands, like:
     #  motor.setPosition(10.0)
-    Jean_Marc = monRobot()
-    monRobot.avancer()
-    monRobot.reculer()
-    monRobot.turnDroite()
-    monRobot.turnGauche()
+    
+    
+    #monRobot.reculer()
+    #monRobot.turnDroite()
+    #Jean_Marc.turnGauche()
+    
+    Jean_Marc.run()
+    
 
     pass
 
