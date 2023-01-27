@@ -110,7 +110,8 @@ class Capteurs():
 
 
 
-    def lectureDistances(self):
+    def lectureDistances(self):    
+        self.listeDistances = []
         self.listeDistances.append(self.Avant1.getValue())
         self.listeDistances.append(self.Avant2.getValue())
         self.listeDistances.append(self.Avant3.getValue())
@@ -136,13 +137,13 @@ class Capteurs():
     def retourMinDistance(self):
         
         liste = self.lectureDistances()
-        valeur_max = None
+        valeur_max = 0
         
         for i in liste: #+ la distance est petite, + le nombre est grand
-            if (valeur_max is None or i > valeur_max):
+            if (i > valeur_max):
                 valeur_max = i
         
-        print(liste)
+        #print(liste)
         print('\ndist min : ', valeur_max)
             
     

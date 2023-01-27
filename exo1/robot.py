@@ -2,7 +2,7 @@
 
 # You may need to import some classes of the controller module. Ex:
 #  from controller import Robot, Motor, DistanceSensor
-from controller import Robot, Motor, DistanceSensor
+from controller import Robot, Motor, DistanceSensor, GPS
 import time
 
 # create the Robot instance.
@@ -16,6 +16,13 @@ timestep = int(robot.getBasicTimeStep())
 #  motor = robot.getDevice('motorname')
 #  ds = robot.getDevice('dsname')
 #  ds.enable(timestep)
+
+class mon_GPS(GPS):
+    def __init__(self):
+        super().__init__('gps')
+    
+    def ex_fonction():
+        pass
 
 class Moteurs():
     
@@ -111,22 +118,23 @@ class Capteurs():
 
 
     def lectureDistances(self):
-        self.listeDistances.append(self.Avant1.getValue())
-        self.listeDistances.append(self.Avant2.getValue())
-        self.listeDistances.append(self.Avant3.getValue())
-        self.listeDistances.append(self.Avant4.getValue())
-        self.listeDistances.append(self.Avant5.getValue())
-        self.listeDistances.append(self.Avant6.getValue())
-        self.listeDistances.append(self.GaucheArriere.getValue())
-        self.listeDistances.append(self.GaucheAvant.getValue())
-        self.listeDistances.append(self.ArriereGauche.getValue())
-        self.listeDistances.append(self.ArriereDroit.getValue())
-        self.listeDistances.append(self.DroitArriere.getValue())
-        self.listeDistances.append(self.DroitAvant.getValue())
-        self.listeDistances.append(self.CoinAvantGauche.getValue())
-        self.listeDistances.append(self.CoinAvantDroit.getValue())
-        self.listeDistances.append(self.CoinArriereGauche.getValue())
-        self.listeDistances.append(self.CoinArriereDroit.getValue())
+        self.listeDistances = []
+        self.listeDistances.append(self.Avant1.getValue()) #listeDistances[0] //AVANT
+        self.listeDistances.append(self.Avant2.getValue()) #listeDistances[1] //AVANT
+        self.listeDistances.append(self.Avant3.getValue()) #listeDistances[2] //AVANT
+        self.listeDistances.append(self.Avant4.getValue()) #listeDistances[3] //AVANT
+        self.listeDistances.append(self.Avant5.getValue()) #listeDistances[4] //AVANT
+        self.listeDistances.append(self.Avant6.getValue()) #listeDistances[5] //AVANT
+        self.listeDistances.append(self.GaucheArriere.getValue()) #listeDistances[6] //GAUCHE
+        self.listeDistances.append(self.GaucheAvant.getValue()) #listeDistances[7] //GAUCHE
+        self.listeDistances.append(self.ArriereGauche.getValue()) #listeDistances[8] //ARRIERE
+        self.listeDistances.append(self.ArriereDroit.getValue()) #listeDistances[9] //ARRIERE
+        self.listeDistances.append(self.DroitArriere.getValue()) #listeDistances[10] //DROIT
+        self.listeDistances.append(self.DroitAvant.getValue()) #listeDistances[11] //DROIT
+        self.listeDistances.append(self.CoinAvantGauche.getValue()) #listeDistances[12] //AVANT
+        self.listeDistances.append(self.CoinAvantDroit.getValue()) #listeDistances[13] //AVANT
+        self.listeDistances.append(self.CoinArriereGauche.getValue()) #listeDistances[14] //ARRIERE
+        self.listeDistances.append(self.CoinArriereDroit.getValue()) #listeDistances[15] /ARRIERE
         
         
         return self.listeDistances 
@@ -139,11 +147,23 @@ class Capteurs():
         valeur_max = 0
         
         for i in liste: #+ la distance est petite, + le nombre est grand
-            if (i > valeur_max):
-                valeur_max = i
-        
-        #print(liste)
-        print('\ndist min : ', valeur_max)
+            if (liste[i] > valeur_max):
+                valeur_max = liste[i]
+
+        print('\nValeur distance min : ', valeur_max)
+
+        if(i==0 or i==1 or i==2 or i==3 or i==4 or i==5 or i==12 or i==13):
+            return "avance"
+        else :
+            if(i==6 or i==7):
+                return "gauche"
+            else :
+                if(i==8 or i==9 or i==14 or i==15):
+                    return "recule"
+                else :
+                    if(i==10 or i==11):
+                        return "droite"
+
             
     
     
@@ -155,8 +175,19 @@ class monRobot(Moteurs) :
         self.mot = Moteurs()
         
     def run(self):
-        #self.avancer()
-        self.capt.retourMinDistance()
+        retourDist = self.capt.retourMinDistance()
+        if(retourDist == "avance"):
+            self.avancer()
+        else :
+            if(retourDist == "recule"):
+                self.reculer()
+            else :
+                if(retourDist == "gauche"):
+                    self.turnGauche()
+                else :
+                    if(retourDist == "droite"):
+                        self.turnDroite()
+
             
     
     
