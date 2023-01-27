@@ -60,59 +60,73 @@ class Capteurs():
     
 
     def __init__(self):
-        self.Avant1 = self.getDevice('ds13') #DistanceSensor('ds13') 
+        self.Avant1 = DistanceSensor('ds13')
         self.Avant1.enable(timestep) 
+
+        self.Avant2 = DistanceSensor('ds14')
+        self.Avant2.enable(timestep) 
+
+        self.Avant3 = DistanceSensor('ds15')
+        self.Avant3.enable(timestep) 
+
+        self.Avant4 = DistanceSensor('ds0')
+        self.Avant4.enable(timestep) 
+
+        self.Avant5 = DistanceSensor('ds1')
+        self.Avant5.enable(timestep) 
+
+        self.Avant6 = DistanceSensor('ds2')
+        self.Avant6.enable(timestep) 
+
+        self.GaucheArriere = DistanceSensor('ds10')
+        self.GaucheArriere.enable(timestep) 
+
+        self.GaucheAvant = DistanceSensor('ds11')
+        self.GaucheAvant.enable(timestep) 
+
+        self.ArriereGauche = DistanceSensor('ds8')
+        self.ArriereGauche.enable(timestep) 
+
+        self.ArriereDroit = DistanceSensor('ds7')
+        self.ArriereDroit.enable(timestep) 
+
+        self.DroitArriere = DistanceSensor('ds5')
+        self.DroitArriere.enable(timestep) 
+
+        self.DroitAvant = DistanceSensor('ds4')
+        self.DroitAvant.enable(timestep) 
+
+        self.CoinAvantGauche = DistanceSensor('ds12')
+        self.CoinAvantGauche.enable(timestep) 
+
+        self.CoinAvantDroit = DistanceSensor('ds3')
+        self.CoinAvantDroit.enable(timestep) 
+
+        self.CoinArriereGauche = DistanceSensor('ds9')
+        self.CoinArriereGauche.enable(timestep) 
+
+        self.CoinArriereDroit = DistanceSensor('ds6')
+        self.CoinArriereDroit.enable(timestep) 
+
+
 
     def lectureDistances(self):
         self.listeDistances.append(self.Avant1.getValue())
-        print(self.Avant1.getValue())
-        """
-        self.Avant2 = DistanceSensor('ds14')
         self.listeDistances.append(self.Avant2.getValue())
-
-        self.Avant3 = DistanceSensor('ds15')
         self.listeDistances.append(self.Avant3.getValue())
-        
-        self.Avant4 = DistanceSensor('ds0')
-        self.listeDistances[3] = self.Avant4.getValue()
-
-        self.Avant5 = DistanceSensor('ds1')
-        self.listeDistances[4] = self.Avant5.getValue()
-
-        self.Avant6 = DistanceSensor('ds2')
-        self.listeDistances[5] = self.Avant6.getValue()
-    
-        self.GaucheArriere = DistanceSensor('ds10')
-        self.listeDistances[6] = self.GaucheArriere.getValue()
-
-        self.GaucheAvant = DistanceSensor('ds11')
-        self.listeDistances[7] = self.GaucheAvant.getValue()        
-    
-        self.ArriereGauche = DistanceSensor('ds8')
-        self.listeDistances[8] = self.ArriereGauche.getValue()
-
-        self.ArriereDroit = DistanceSensor('ds7')
-        self.listeDistances[9] = self.ArriereDroit.getValue()
-    
-        self.DroitArriere = DistanceSensor('ds5')
-        self.listeDistances[10] = self.DroitArriere.getValue()
-
-        self.DroitAvant = DistanceSensor('ds4')
-        self.listeDistances[11] = self.DroitAvant.getValue()
-    
-        self.CoinAvantGauche = DistanceSensor('ds12')
-        self.listeDistances[12] = self.CoinAvantGauche.getValue()
-
-        self.CoinAvantDroit = DistanceSensor('ds3')
-        self.listeDistances[13] = self.CoinAvantDroit.getValue()
-    
-        self.CoinArriereGauche = DistanceSensor('ds9')
-        self.listeDistances[14] = self.CoinArriereGauche.getValue()
-
-        self.CoinArriereDroit = DistanceSensor('ds6')
-        self.listeDistances[15] = self.CoinArriereDroit.getValue()
-        """
-        
+        self.listeDistances.append(self.Avant4.getValue())
+        self.listeDistances.append(self.Avant5.getValue())
+        self.listeDistances.append(self.Avant6.getValue())
+        self.listeDistances.append(self.GaucheArriere.getValue())
+        self.listeDistances.append(self.GaucheAvant.getValue())
+        self.listeDistances.append(self.ArriereGauche.getValue())
+        self.listeDistances.append(self.ArriereDroit.getValue())
+        self.listeDistances.append(self.DroitArriere.getValue())
+        self.listeDistances.append(self.DroitAvant.getValue())
+        self.listeDistances.append(self.CoinAvantGauche.getValue())
+        self.listeDistances.append(self.CoinAvantDroit.getValue())
+        self.listeDistances.append(self.CoinArriereGauche.getValue())
+        self.listeDistances.append(self.CoinArriereDroit.getValue())
         
         
         return self.listeDistances 
@@ -122,8 +136,14 @@ class Capteurs():
     def retourMinDistance(self):
         
         liste = self.lectureDistances()
-        #print(liste)
-        #distMax = min(liste)
+        valeur_max = None
+        
+        for i in liste: #+ la distance est petite, + le nombre est grand
+            if (valeur_max is None or i > valeur_max):
+                valeur_max = i
+        
+        print(liste)
+        print('\ndist min : ', valeur_max)
             
     
     
