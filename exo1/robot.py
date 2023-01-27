@@ -24,6 +24,7 @@ class mon_GPS(GPS):
     def ex_fonction():
         pass
 
+
 class Moteurs():
     
     __vitesseGauche = 5
@@ -145,23 +146,28 @@ class Capteurs():
         
         liste = self.lectureDistances()
         valeur_max = 0
-        
-        for i in liste: #+ la distance est petite, + le nombre est grand
+        #indice = 0
+
+        for i in range(len(liste)): #+ la distance est petite, + le nombre est grand
             if (liste[i] > valeur_max):
                 valeur_max = liste[i]
+                indice = i
 
+                
+        print('\nindice : ',indice)
         print('\nValeur distance min : ', valeur_max)
 
-        if(i==0 or i==1 or i==2 or i==3 or i==4 or i==5 or i==12 or i==13):
-            return "avance"
-        else :
-            if(i==6 or i==7):
+        if(indice==0 or indice==1 or indice==2 or indice==3 or indice==4 or indice==5 or indice==12 or indice==13):
+           print('je suis censé avancer')
+           return "avance"
+        else  :
+            if(indice==6 or indice==7):
                 return "gauche"
             else :
-                if(i==8 or i==9 or i==14 or i==15):
+                if(indice==8 or indice==9 or indice==14 or indice==15):
                     return "recule"
                 else :
-                    if(i==10 or i==11):
+                    if(indice==10 or indice==11):
                         return "droite"
 
             
@@ -173,6 +179,7 @@ class monRobot(Moteurs) :
     def __init__(self):
         self.capt = Capteurs()
         self.mot = Moteurs()
+        self.avancer()
         
     def run(self):
         retourDist = self.capt.retourMinDistance()
@@ -184,9 +191,13 @@ class monRobot(Moteurs) :
             else :
                 if(retourDist == "gauche"):
                     self.turnGauche()
+                    time.sleep(5)
+                    self.avancer()
                 else :
                     if(retourDist == "droite"):
                         self.turnDroite()
+                    time.sleep(5)
+                    self.avancer()
 
             
     
