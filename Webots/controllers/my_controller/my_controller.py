@@ -40,24 +40,32 @@ class Moteurs():
         self.__moteurDroit.setVelocity(0)
 
     def avancer(self):
-        self.__moteurGauche.setVelocity(5)
-        self.__moteurDroit.setVelocity(5)
-        print("J'avance")
+        self.__moteurGauche.setVelocity(8)
+        self.__moteurDroit.setVelocity(8)
+        #print("J'avance")
+        
+    """def avancer_vite(self):
+        self.__moteurGauche.setVelocity(8)
+        self.__moteurDroit.setVelocity(8)
+        #print("J'avance")"""
 
     def reculer(self):
-        self.__moteurGauche.setVelocity(-5)
-        self.__moteurDroit.setVelocity(-5)
-        print("Je recule")
+        self.__moteurGauche.setVelocity(-6)
+        self.__moteurDroit.setVelocity(-6)
+        #print("Je recule")
 
     def turnGauche(self):
-        self.__moteurGauche.setVelocity(-5)
-        self.__moteurDroit.setVelocity(5)
-        print('Je tourne à gauche')
+        self.__moteurGauche.setVelocity(-10)
+        self.__moteurDroit.setVelocity(0)
+        #print('Je tourne à gauche')
     
     def turnDroite(self):
-        self.__moteurGauche.setVelocity(5)
-        self.__moteurDroit.setVelocity(-5)
-        print('Je tourne à droite')
+        self.__moteurGauche.setVelocity(0)
+        self.__moteurDroit.setVelocity(-10)
+        #print('Je tourne à droite')
+        
+   
+        
 
 
 
@@ -156,10 +164,10 @@ class Capteurs():
 
                 
         
-        print('\n\nValeur distance min : ', valeur_max)
+        #print('\n\nValeur distance min : ', valeur_max)
 
         if(indice==0 or indice==1 or indice==2 or indice==3 or indice==4 or indice==5 or indice==12 or indice==13):
-           print('je suis censé avancer')
+           #print('je suis censé avancer')
            return "avance"
         else  :
             if(indice==6 or indice==7):
@@ -177,11 +185,11 @@ class mon_GPS():
     def __init__(self):
         self.position = GPS('gps')
         self.position.enable(timestep) 
-        #self.position_robot = [0,0]
+        
     
     def lecture_position(self):
-        self.position_robot = self.position.getValues()
-        print('\n-----\nposition du robot : ', self.position_robot)
+        self.position_robot = self.position.getValues() 
+        #print('\n-----\nposition du robot : ', self.position_robot)
         return self.position_robot
 
     
@@ -199,18 +207,33 @@ class monRobot(Moteurs) :
         retourPos = self.pos.lecture_position()
         retourDist = self.capt.retourMinDistance()
         
-        if(retourDist == "avance"):
-            self.avancer()
-        else :
-            if(retourDist == "recule"):
-                self.reculer()
-            else :
-                if(retourDist == "gauche"):
+        
+        if(retourPos[0] < -3.7): 
+            self.turnGauche()
+        else : 
+            if(retourPos[0] > 3.7): 
+                self.turnGauche()
+            else:
+                if(retourPos[1] < -3.7):
                     self.turnGauche()
-                else :
-                    if(retourDist == "droite"):
-                        self.turnDroite()
-
+                else : 
+                    if(retourPos[0] > 3.7): 
+                        self.turnGauche()
+            
+            
+                    else :
+                        if(retourDist == "avance"):
+                            self.avancer()
+                        else :
+                            if(retourDist == "recule"):
+                                self.reculer()
+                            else :
+                                if(retourDist == "gauche"):
+                                    self.turnGauche()
+                                else :
+                                    if(retourDist == "droite"):
+                                        self.turnDroite()
+    
             
     
     

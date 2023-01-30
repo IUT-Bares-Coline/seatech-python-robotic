@@ -7,13 +7,12 @@ EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/project
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/toys/protos/RubberDuck.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/objects/solids/protos/SolidBox.proto"
 EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/k-team/koala/protos/Koala.proto"
-EXTERNPROTO "https://raw.githubusercontent.com/cyberbotics/webots/R2023a/projects/robots/adept/pioneer2/protos/Pioneer2.proto"
 
 WorldInfo {
 }
 Viewpoint {
-  orientation 0.24977826163418682 0.019892461763047008 -0.9680987087998877 3.196032027816089
-  position 6.68232060099964 -0.6905510326858124 5.830625449754496
+  orientation 0.7257971808784927 0.009649998911172582 -0.6878410643090793 3.1950937551126657
+  position -1.0413178113952484 -0.7212104256755913 20.07530109658913
 }
 TexturedBackground {
   texture "noon_stormy_empty"
@@ -79,7 +78,4 @@ Koala {
     GPS {
     }
   ]
-}
-Pioneer2 {
-  translation -0.29 0.55 2.06
 }
