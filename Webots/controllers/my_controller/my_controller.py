@@ -16,13 +16,14 @@ timestep = int(robot.getBasicTimeStep())
 #  motor = robot.getDevice('motorname')
 #  ds = robot.getDevice('dsname')
 #  ds.enable(timestep)
-
+"""
 class mon_GPS(GPS):
     def __init__(self):
         super().__init__('gps')
     
     def ex_fonction():
         pass
+"""
 
 
 class Moteurs():
@@ -154,8 +155,8 @@ class Capteurs():
                 indice = i
 
                 
-        print('\nindice : ',indice)
-        print('\nValeur distance min : ', valeur_max)
+        
+        print('\n\nValeur distance min : ', valeur_max)
 
         if(indice==0 or indice==1 or indice==2 or indice==3 or indice==4 or indice==5 or indice==12 or indice==13):
            print('je suis censé avancer')
@@ -171,6 +172,18 @@ class Capteurs():
                         return "droite"
 
             
+class mon_GPS():
+    
+    def __init__(self):
+        self.position = GPS('gps')
+        self.position.enable(timestep) 
+        #self.position_robot = [0,0]
+    
+    def lecture_position(self):
+        self.position_robot = self.position.getValues()
+        print('\n-----\nposition du robot : ', self.position_robot)
+        return self.position_robot
+
     
     
 class monRobot(Moteurs) :
@@ -179,10 +192,13 @@ class monRobot(Moteurs) :
     def __init__(self):
         self.capt = Capteurs()
         self.mot = Moteurs()
+        self.pos = mon_GPS()
         self.avancer()
         
     def run(self):
+        retourPos = self.pos.lecture_position()
         retourDist = self.capt.retourMinDistance()
+        
         if(retourDist == "avance"):
             self.avancer()
         else :
